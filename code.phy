@@ -1,0 +1,82 @@
+class Tarea:
+    def __init__(self, titulo, descripcion, fecha_vencimiento):
+        self.titulo = titulo
+        self.descripcion = descripcion
+        self.fecha_vencimiento = fecha_vencimiento
+    
+    def __str__(self):
+        return f"{self.titulo} - {self.descripcion} - {self.fecha_vencimiento}"
+
+class GestorDeTareas:
+    def __init__(self):
+        self.tareas = []
+
+    def agregar_tarea(self, tarea):
+        self.tareas.append(tarea)
+        print("Tarea agregada con éxito.")
+
+    def eliminar_tarea(self, titulo):
+        self.tareas = [tarea for tarea in self.tareas if tarea.titulo != titulo]
+        print("Tarea eliminada con éxito.")
+
+    def listar_tareas(self):
+        if not self.tareas:
+            print("No hay tareas.")
+        else:
+            for tarea in self.tareas:
+                print(tarea)
+                
+
+    def buscar_tarea(self, titulo):
+        for tarea in self.tareas:
+            if tarea.titulo == titulo:
+                return tarea
+        return None
+
+def mostrar_menu():
+    print("\nBienvenido al Gestor de Tareas")
+    print("1. Agregar tarea")
+    print("2. Eliminar tarea")
+    print("3. Listar tareas")
+    print("4. Buscar tarea")
+    print("5. Salir")
+
+def main():
+    gestor = GestorDeTareas()
+    
+    while True:
+        mostrar_menu()
+        opcion = input("Elija una opción: ")
+        
+        if opcion == "1":
+            titulo = input("Ingrese el título de la tarea: ")
+            descripcion = input("Ingrese la descripción de la tarea: ")
+            fecha_vencimiento = input("Ingrese la fecha de vencimiento (dd/mm/aaaa): ")
+            tarea = Tarea(titulo, descripcion, fecha_vencimiento)
+            gestor.agregar_tarea(tarea)
+        
+        elif opcion == "2":
+            titulo = input("Ingrese el título de la tarea a eliminar: ")
+            gestor.eliminar_tarea(titulo)
+        
+        elif opcion == "3":
+            print("\nLista de Tareas:")
+            gestor.listar_tareas()
+        
+        elif opcion == "4":
+            titulo = input("Ingrese el título de la tarea a buscar: ")
+            tarea = gestor.buscar_tarea(titulo)
+            if tarea:
+                print(tarea)
+            else:
+                print("Tarea no encontrada.")
+        
+        elif opcion == "5":
+            print("¡Hasta luego!")
+            break
+        
+        else:
+            print("Opción no válida. Inténtelo de nuevo.")
+
+if __name__ == "__main__":
+    main()
